@@ -1,0 +1,65 @@
+LOCUS       YSCUNG1A                1406 bp    DNA     linear   PLN 27-APR-1993
+DEFINITION  S.cerevisiae UNG1 gene encoding uracil-DNA-glycosylase, complete
+            cds.
+ACCESSION   J04470
+VERSION     J04470.1  GI:173139
+KEYWORDS    UNG1 gene; uracil-DNA-glycosylase.
+SOURCE      Saccharomyces cerevisiae (baker's yeast)
+  ORGANISM  Saccharomyces cerevisiae
+            Eukaryota; Fungi; Dikarya; Ascomycota; Saccharomycotina;
+            Saccharomycetes; Saccharomycetales; Saccharomycetaceae;
+            Saccharomyces.
+REFERENCE   1  (bases 1 to 1406)
+  AUTHORS   Percival,K.J., Klein,M.B. and Burgers,P.M.
+  TITLE     Molecular cloning and primary structure of the
+            uracil-DNA-glycosylase gene from Saccharomyces cerevisiae
+  JOURNAL   J. Biol. Chem. 264 (5), 2593-2598 (1989)
+   PUBMED   2644266
+COMMENT     Original source text: S.cerevisiae (yEp24 library) DNA, clone
+            pMK210.
+            Draft entry and computer-readable sequence [1] kindly submitted by
+            P.M.J. Burgers 30-NOV-1988.
+FEATURES             Location/Qualifiers
+     source          1..1406
+                     /organism="Saccharomyces cerevisiae"
+                     /mol_type="genomic DNA"
+                     /db_xref="taxon:4932"
+     CDS             120..1199
+                     /note="uracil-DNA-glycosylase"
+                     /codon_start=1
+                     /protein_id="AAA35195.1"
+                     /db_xref="GI:173140"
+                     /translation="MWCMRRLPTNSVMTVARKRKQTTIEDFFGTKKSTNEAPNKKGKS
+                     GATFMTITNGAAIKTETKAVAKEANTDKYPANSNAKDVYSKNLSSNLRTLLSLELETI
+                     DDSWFPHLMDEFKKPYFVKLKQFVTKEQADHTVFPPAKDIYSWTRLTPFNKVKVVIIG
+                     QDPYHNFNQAHGLAFSVKPPTPAPPSLKNIYKELKQEYPDFVEDNKVGDLTHWASQGV
+                     LLLNTSLTVRAHNANSHSKHGWETFTKRVVQLLIQDREADGKSLVFLLWGNNAIKLVE
+                     SLLGSTSVGSGSKYPNIMVMKSVHPSPLSASRGFFGTNHFKMINDWLYNTRGEKMIDW
+                     SVVPGTSLREVQEANARLESESKDP"
+ORIGIN      Chromosome XIII: left arm.
+        1 aagctttaca tataaactca atattttccc tattgtcaaa acctggaatg tgtccgcaac
+       61 gcgtaattca tccataatga tatatattat cagaagctgt acacaagccg ttcacataca
+      121 tgtggtgcat gagaagattg ccaacaaatt cagttatgac ggtggctcga aagagaaagc
+      181 aaactacgat cgaagacttc tttggtacaa agaaaagcac taatgaggcg cccaataaga
+      241 aaggtaaatc gggcgctact ttcatgacca taacaaatgg cgcagctatc aagacagaga
+      301 caaaggcggt cgcaaaggag gcaaacacgg acaaatatcc tgctaattca aatgcaaaag
+      361 atgtatattc gaagaacttg agcagcaatt tacgtacact actgtcgctg gagctagaaa
+      421 cgattgatga ttcgtggttt ccacatttaa tggatgaatt taaaaagcca tattttgtaa
+      481 agttgaaaca gtttgtcact aaagagcaag ctgatcatac agtatttccg cctgcaaagg
+      541 atatttactc atggaccagg ctaacgcctt ttaataaagt taaagtcgtg attatcggtc
+      601 aagatcccta ccacaacttt aatcaggcgc atggcttggc ttttagcgtc aaacccccta
+      661 caccagcacc accgtcatta aagaacatat ataaggaact gaagcaagag tatcctgatt
+      721 ttgttgaaga taataaagtg ggagatttaa ctcactgggc ttcacaaggg gttttattgc
+      781 ttaatacctc gttaactgta agagcacata atgcaaactc gcattctaag catggttggg
+      841 aaacttttac aaaaagggta gttcagttgt tgatccagga cagagaggcc gacggtaaga
+      901 gtttagtatt cctcttatgg gggaacaatg ctatcaaatt agtagagtct ctgttgggat
+      961 ctacttccgt tggaagcggt agtaagtacc ctaatatcat ggtgatgaag tcagtgcatc
+     1021 cgtctccatt aagtgcaagt agaggatttt ttggtaccaa ccatttcaaa atgataaacg
+     1081 attggctata caatacccgc ggagagaaaa tgatagactg gagtgttgtt cctggaacgt
+     1141 cattaagaga agttcaggag gcaaatgctc gcttagagtc agaatcaaag gacccttgaa
+     1201 tattactatt gcatatgcag gtctcgattt ccaaactctt taaaagcata taatagataa
+     1261 aaaactaaat agactacttt gtggcacaaa gcagaaaagt ggattgaata tttttcaatc
+     1321 taaaaagtaa atattataca accaaattga gagagtaagg agaagtaaga aaaataaatt
+     1381 gcttgaaacc ggcagaaagg aagctt
+//
+

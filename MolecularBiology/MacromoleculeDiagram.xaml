@@ -1,0 +1,190 @@
+﻿<UserControl x:Class="MacromoleculeDiagram" x:ClassModifier="Friend"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:MolecularBiology2"
+             xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300" MinWidth="240" MinHeight="240">
+    <UserControl.Resources>
+        <local:SequenceLocationsConverter x:Key="SequenceLocationsConverter" />
+        <local:MinHeightConverter x:Key="MinHeightConverter" />
+        <local:ScalingConverter x:Key="ScalingConverter" />
+        <local:DivideValueConverter x:Key="DivideValueConverter" />
+        <local:MajorTickIntervalConverter x:Key="MajorTickIntervalConverter" />
+        <local:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <local:ArrowConverter x:Key="ArrowConverter" />
+        <local:FeatureLabelConverter x:Key="FeatureLabelConverter" />
+        <local:RadiusConverter x:Key="RadiusConverter" />
+        <local:CenterYConverter x:Key="CenterYConverter" />
+        <local:InvertValueConverter x:Key="InvertValueConverter" />
+    </UserControl.Resources>
+    <Grid>
+        <local:CollapsableCircle Stroke="Black" StrokeThickness="3">
+            <local:CollapsableCircle.Radius>
+                <Binding Path="Radius" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}" />
+            </local:CollapsableCircle.Radius>
+            <local:CollapsableCircle.CenterX>
+                <Binding Path="CenterX" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}" />
+            </local:CollapsableCircle.CenterX>
+            <local:CollapsableCircle.CenterY>
+                <Binding Path="CenterY" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}" />
+            </local:CollapsableCircle.CenterY>
+            <local:CollapsableCircle.IsCircular>
+                <Binding Path="IsCircular" />
+            </local:CollapsableCircle.IsCircular>
+        </local:CollapsableCircle>
+        <local:RulerShape ShowMinorTicks="True" MinorTickInterval="100" MajorTickInterval="500" Stroke="Gray" StrokeThickness="1" FontFamily="Calibri">
+            <local:RulerShape.Radius>
+                <MultiBinding Converter="{StaticResource RadiusConverter}">
+                    <Binding Path="Radius" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}" />
+                    <Binding Source="0.5" />
+                    <Binding Path="DisplacementIncrement" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}" />
+                    <Binding Path="IsCircular" />
+                </MultiBinding>
+            </local:RulerShape.Radius>
+            <local:RulerShape.CenterX>
+                <Binding Path="CenterX" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}" />
+            </local:RulerShape.CenterX>
+            <local:RulerShape.CenterY>
+                <MultiBinding Converter="{StaticResource CenterYConverter}">
+                    <Binding Path="CenterY" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}" />
+                    <Binding Source="0.5" />
+                    <Binding Path="DisplacementIncrement" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}" />
+                    <Binding Path="IsCircular" />
+                </MultiBinding>
+            </local:RulerShape.CenterY>
+            <local:RulerShape.MacromoleculeSize>
+                <Binding Path="SequenceLength" />
+            </local:RulerShape.MacromoleculeSize>
+            <local:RulerShape.IsCircular>
+                <Binding Path="IsCircular" />
+            </local:RulerShape.IsCircular>
+            <local:RulerShape.MinorTickLength>
+                <Binding Path="ScaleFactor" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}"  Converter="{StaticResource ScalingConverter}" ConverterParameter="0.02" />
+            </local:RulerShape.MinorTickLength>
+            <local:RulerShape.MajorTickLength>
+                <Binding Path="ScaleFactor" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}"  Converter="{StaticResource ScalingConverter}" ConverterParameter="0.04" />
+            </local:RulerShape.MajorTickLength>
+        </local:RulerShape>
+        <ItemsControl x:Name="FeatureSelector" ItemsSource="{Binding Path=Features}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <local:FeatureShape Stroke="Black" Fill="White" Opacity="0.9" StrokeThickness="1" ShapeType="Block" FontFamily="Calibri">
+                        <local:FeatureShape.Spans>
+                            <MultiBinding Converter="{StaticResource SequenceLocationsConverter}">
+                                <Binding Path="SequenceLocations"/>
+                                <Binding Path="(UserControl.DataContext).SequenceLength" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}"/>
+                            </MultiBinding>
+                        </local:FeatureShape.Spans>
+                        <local:FeatureShape.Radius>
+                            <MultiBinding Converter="{StaticResource RadiusConverter}">
+                                <Binding Path="Radius" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}" />
+                                <Binding Path="OverlapIndex" />
+                                <Binding Path="DisplacementIncrement" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}" />
+                                <Binding Path="(UserControl.DataContext).IsCircular" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}" />
+                            </MultiBinding>
+                        </local:FeatureShape.Radius>
+                        <local:FeatureShape.CenterX>
+                            <Binding Path="CenterX" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}" />
+                        </local:FeatureShape.CenterX>
+                        <local:FeatureShape.CenterY>
+                            <MultiBinding Converter="{StaticResource CenterYConverter}">
+                                <Binding Path="CenterY" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}" />
+                                <Binding Path="OverlapIndex" />
+                                <Binding Path="DisplacementIncrement" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}" />
+                                <Binding Path="(UserControl.DataContext).IsCircular" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}" />
+                            </MultiBinding>
+                        </local:FeatureShape.CenterY>
+                        <local:FeatureShape.IsCircular>
+                            <Binding Path="(UserControl.DataContext).IsCircular" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}"/>
+                        </local:FeatureShape.IsCircular>
+                        <local:FeatureShape.IsJoined>
+                            <Binding Path="IsJoined" />
+                        </local:FeatureShape.IsJoined>
+                        <local:FeatureShape.ArrowType>
+                            <MultiBinding Converter="{StaticResource ArrowConverter}">
+                                <Binding Path="Type" />
+                                <Binding Path="Qualifiers" />
+                            </MultiBinding>
+                        </local:FeatureShape.ArrowType>
+                        <local:FeatureShape.Text>
+                            <MultiBinding Converter="{StaticResource FeatureLabelConverter}">
+                                <Binding Path="Type" />
+                                <Binding Path="Qualifiers" />
+                            </MultiBinding>
+                        </local:FeatureShape.Text>
+                        <local:FeatureShape.ShaftWidth>
+                            <Binding Path="ScaleFactor" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}"  Converter="{StaticResource ScalingConverter}" ConverterParameter="0.05" />
+                        </local:FeatureShape.ShaftWidth>
+                        <local:FeatureShape.HeadExtension>
+                            <Binding Path="ScaleFactor" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}"  Converter="{StaticResource ScalingConverter}" ConverterParameter="0.02" />
+                        </local:FeatureShape.HeadExtension>
+                        <local:FeatureShape.HeadLength>
+                            <Binding Path="ScaleFactor" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}"  Converter="{StaticResource ScalingConverter}" ConverterParameter="0.05" />
+                        </local:FeatureShape.HeadLength>
+                        <local:FeatureShape.JoinExtension>
+                            <Binding Path="ScaleFactor" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}"  Converter="{StaticResource ScalingConverter}" ConverterParameter="0.02" />
+                        </local:FeatureShape.JoinExtension>
+                        <local:FeatureShape.FontSize>
+                            <Binding Path="ScaleFactor" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}"  Converter="{StaticResource ScalingConverter}" ConverterParameter="0.045" />
+                        </local:FeatureShape.FontSize>
+                    </local:FeatureShape>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <ItemsControl x:Name="InfoFeatureSelector" ItemsSource="{Binding Path=InfoFeatures}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <local:FeatureShape Stroke="Black" StrokeThickness="1" ShaftWidth="5" ShapeType="Bracket">
+                        <local:FeatureShape.Spans>
+                            <MultiBinding Converter="{StaticResource SequenceLocationsConverter}">
+                                <Binding Path="SequenceLocations"/>
+                                <Binding Path="(UserControl.DataContext).SequenceLength" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}"/>
+                            </MultiBinding>
+                        </local:FeatureShape.Spans>
+                        <local:FeatureShape.Radius>
+                            <MultiBinding Converter="{StaticResource RadiusConverter}">
+                                <Binding Path="Radius" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}" />
+                                <Binding Path="OverlapIndex" Converter="{StaticResource InvertValueConverter}" ConverterParameter="-1" />
+                                <Binding Path="DisplacementIncrement" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}" />
+                                <Binding Path="(UserControl.DataContext).IsCircular" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}" />
+                            </MultiBinding>
+                        </local:FeatureShape.Radius>
+                        <local:FeatureShape.CenterX>
+                            <Binding Path="CenterX" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}" />
+                        </local:FeatureShape.CenterX>
+                        <local:FeatureShape.CenterY>
+                            <MultiBinding Converter="{StaticResource CenterYConverter}">
+                                <Binding Path="CenterY" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}" />
+                                <Binding Path="OverlapIndex" Converter="{StaticResource InvertValueConverter}" ConverterParameter="-1" />
+                                <Binding Path="DisplacementIncrement" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}" />
+                                <Binding Path="(UserControl.DataContext).IsCircular" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}" />
+                            </MultiBinding>
+                        </local:FeatureShape.CenterY>
+                        <local:FeatureShape.IsCircular>
+                            <Binding Path="(UserControl.DataContext).IsCircular" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}"/>
+                        </local:FeatureShape.IsCircular>
+                        <local:FeatureShape.Text>
+                            <MultiBinding Converter="{StaticResource FeatureLabelConverter}">
+                                <Binding Path="Type" />
+                                <Binding Path="Qualifiers" />
+                            </MultiBinding>
+                        </local:FeatureShape.Text>
+                    </local:FeatureShape>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+</UserControl>
